@@ -9,7 +9,7 @@ This project is an online-resource for voting and elections.
  
    Starting from command line:
    > python manage.py runserver
-   > start http://127.0.0.1:8000
+   start http://127.0.0.1:8000
   
   
   
