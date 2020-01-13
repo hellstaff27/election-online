@@ -1,0 +1,14 @@
+{% extends 'base_2.html' %}
+
+{% block content %}
+				<div class="card col-lg-6 mt-5 col-sm-6 col-12 col-xl-6 check" style="width: 18rem;">
+					<h2 style="text-align: center;" class="mt-3 alert alert-danger">Вы уверены в выборе?</h2>
+					<img src="{{ candidat.image.url }}" class="card-img-top mt-2" alt="{{ candidat.name }}">
+					<div class="card-body">
+						<h5 class="card-title">{{ candidat.name }}</h5>
+						<p class="card-text">{{ candidat.move }}</p>
+						<a href="{% url 'index_url' %}" class="btn btn-primary ubtn">На главную</a>
+						<a href="{% url 'vote_url' id=candidat.id %}" class="btn btn-danger ubtn mt-2">Проголосовать</a>
+					</div>
+				</div>
+{% endblock %}
