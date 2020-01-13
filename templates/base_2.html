@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<title>{% block title %}Голосования.ru{% endblock %}</title>
+</head>
+<body>
+
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100% !important;">
+			<a class="navbar-brand" href="#">ГОЛОСОВАНИЯ.RU</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item {% if candidats %}active{% endif %}">
+						<a class="nav-link" href="{% url 'index_url' %}">Главная{% if candidats %}<span class="sr-only">(current)</span>{% endif %}</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {% if form %}active{% endif %}" href="{% url 'auth_url' %}">Авторизация{% if form %}<span class="sr-only">(current)</span>{% endif %}</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<section class="container">
+			<div class="row">
+				{% block content %}
+					Ничего нет на странице. Временные технические неполадки.
+				{% endblock %}
+			</div>
+		</section>
+	</main>
+
+	<footer style="" class="mt-5 bg-light ml-3">
+		<span class="navbar-brand">COPYRIGHT 2020 Все права защищены</span>
+		<span class="navbar-nav">Копирование влечёт за собой уголовную ответственность!</span>
+	</footer>
+
+</body>
+</html>
