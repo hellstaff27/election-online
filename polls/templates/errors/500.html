@@ -1,0 +1,9 @@
+{% extend 'error_base.html' %}
+
+{% block title %}
+500 - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<h1>Простите, ошибка сервера!</h1>
+{% endblock %}
