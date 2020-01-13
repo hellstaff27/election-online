@@ -1,0 +1,9 @@
+{% extends 'base_2.html' %}
+
+{% block title %}
+Подождите - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<h1 class="alert alert-danger mt-5" style="text-align: center;">На этом устройстве недавно голосовали, проголосуйте позже</h1>
+{% endblock %}
