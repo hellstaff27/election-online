@@ -26,5 +26,4 @@ This project is an online-resource for voting and elections.
  
 
 
-**MacroDev Studio
-2020**
+**MacroDev Studio 2020**
