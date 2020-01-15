@@ -16,7 +16,9 @@ This project is an online-resource for voting and elections.
  
   
   The project is located on a local server temporarily: in the future, it should have its own data center with reliable protection against DoS and DDoS attacks.
+  
   Project is under development. Wait for your offers.
+  
   
   
  *The authors: Nikita Pavlov, Dmitry Matveev, Plato Trofimov, Aida Fayzrakhmanova, Artem Naumov, Victor Ivanov, Svyatoslav Yesipov, Daniil Goncharov, Pavel Pavlov, Zahar Titov, Alexandra Ledyaykina.*
