@@ -15,15 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('polls.urls')),
-    path('count/', include('count.urls')),
+    path('', include('polls.urls', namespace = 'polls')),
+    path('users/', include('users.urls', namespace = 'users')),
+    path('count/', include('count.urls', namespace = 'count')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 handler404 = 'polls.views.handler404'
-# handler400 = 'polls.views.handler400'
-# handler500 = 'polls.views.handler500'

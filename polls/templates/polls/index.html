@@ -1,16 +1,27 @@
 {% extends 'base_2.html' %}
 
 {% block content %}
-	{% for candidat in candidats %}
-				<div class="card col-lg-6 mt-5 col-sm-6 col-12 col-xl-4" style="width: 18rem;">
-					<img src="{{ candidat.image.url }}" class="card-img-top mt-3" alt="{{ candidat.name }}">
-					<div class="card-body">
-						<h5 class="card-title">{{ candidat.name }}</h5>
-						<p class="card-text">{{ candidat.move|truncatewords:15 }}</p>
-					</div>
-					<div class="mb-3">
-						<a href="{% url 'check_url' id=candidat.id %}" class="btn btn-primary ubtn">Проголосовать</a>
-					</div>
+	{% if not request.user.is_authenticated %}
+	<h2 class="alert alert-light uhead3 mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
+	{% endif%}
+	<div class="card-columns mt-3">
+	{% for theme in themes %}
+		<div class="card">
+			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
+			<div class="card-body text-dark">
+				<h5 class="card-title">{{ theme.name }}</h5>
+				<p class="card-text">{{ theme.description }}</p>
+				<div class="mb-3">
+					{% if theme.date_ended > time %}
+					<h5 class="card-text">Начало: {{ theme.date_started }}</h5>
+					<h5 class="card-text">Окончание: {{ theme.date_ended }}</h5>
+					{% else %}
+					<h5 class="card-text">Голосование окончено {{ theme.date_ended }}</h5>
+					{%endif %}
 				</div>
+				<a href="{{ theme.get_absolute_url }}" class="btn btn-primary btn-block">Посмотреть</a>
+			</div>
+		</div>
 	{% endfor %}
+	</div>
 {% endblock %}

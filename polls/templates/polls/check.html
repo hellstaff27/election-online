@@ -1,14 +1,25 @@
 {% extends 'base_2.html' %}
 
 {% block content %}
-				<div class="card col-lg-6 mt-5 col-sm-6 col-12 col-xl-6 check" style="width: 18rem;">
-					<h2 style="text-align: center;" class="mt-3 alert alert-danger">Вы уверены в выборе?</h2>
+				{% if not request.user.is_authenticated %}
+					<h2 class="alert alert-light uhead3 mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
+				{% endif%}
+				<div class="col-xl-2 col-lg-2 col-md-2 col-md-2 col-sm-1"></div>
+				<div class="card mt-5 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-12" style="width: 18rem;">
+					{% if request.user.is_authenticated and not voted and time < date_ended %}
+					<h2 class="mt-3 alert alert-danger text-center">Вы уверены в выборе?</h2>
+					{% elif time > date_ended %}
+					<h2 class="mt-3 alert alert-danger text-center">Голосование окончено</h2>
+					{% endif %}
 					<img src="{{ candidat.image.url }}" class="card-img-top mt-2" alt="{{ candidat.name }}">
-					<div class="card-body">
+					<div class="card-body text-dark">
 						<h5 class="card-title">{{ candidat.name }}</h5>
 						<p class="card-text">{{ candidat.move }}</p>
-						<a href="{% url 'index_url' %}" class="btn btn-primary ubtn">На главную</a>
-						<a href="{% url 'vote_url' id=candidat.id %}" class="btn btn-danger ubtn mt-2">Проголосовать</a>
+						<a href="{% url 'polls:theme_url' theme_id=candidat.theme.id %}" class="btn btn-primary btn-block">Назад</a>
+						{% if request.user.is_authenticated and not voted and time < date_ended %}
+						<a href="{{ candidat.get_vote_url }}" class="btn btn-danger btn-block mt-2">Проголосовать</a>
+						{% endif %}
 					</div>
 				</div>
+				<div class="col-xl-2 col-lg-3 col-md-3 col-md-2 col-sm-1"></div>
 {% endblock %}
