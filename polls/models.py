@@ -1,53 +1,49 @@
 from django.db import models
-# from django.contrib.auth.models import AbstractUser
-from .models import *
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+
+from datetime import timedelta
 from PIL import Image
 
 # Create your models here.
+class Theme(models.Model):
+	name = models.CharField(max_length = 255, verbose_name = 'Название темы')
+	image = models.ImageField(upload_to = 'images', verbose_name = 'Изображение', blank = True)
+	description = models.TextField(blank = True, verbose_name = 'Описание')
+	date_ended = models.DateTimeField(default = (timezone.now() + timedelta(days = 5)))
+	date_started = models.DateTimeField(auto_now_add = True)
+	users_voted = models.ManyToManyField(get_user_model(), blank = True, related_name = 'themes')
+
+	def __str__(self):
+		return self.name
+	def get_absolute_url(self):
+		return reverse('polls:theme_url', kwargs = {'theme_id': self.id})
+	def get_count_url(self):
+		return reverse('count:count_url', kwargs = {'id': self.id})
+
+	class Meta:
+		db_table = 'theme'
+		ordering = ['date_ended']
+		verbose_name = 'Тема'
+		verbose_name_plural = 'Темы'
+
 class Candidat(models.Model):
-	name = models.CharField(max_length = 255, verbose_name = 'Имя кандидата')
+	theme = models.ForeignKey(Theme, on_delete = models.CASCADE, default = None)
+	name = models.CharField(max_length = 255, verbose_name = 'Кандидат')
 	image = models.ImageField(upload_to = 'photos', verbose_name = 'Фотография')
-	move = models.CharField(max_length = 255, verbose_name = 'Выдвеженец')
+	move = models.CharField(max_length = 255, verbose_name = 'Описание')
 	votes = models.PositiveIntegerField(default = 0)
 
 	def __str__(self):
 		return self.name
+	def get_absolute_url(self):
+		return reverse('polls:check_url', kwargs = {'theme_id': self.theme.id, 'can_id': self.id})
+	def get_vote_url(self):
+		return reverse('polls:vote_url', kwargs = {'theme_id': self.theme.id, 'can_id': self.id})
 
 	class Meta:
+		db_table = 'candidat'
 		ordering = ['name']
 		verbose_name = 'Кандидат'
 		verbose_name_plural = 'Кандидаты'
-
-class Voter(models.Model):
-	name = models.CharField(max_length = 255, verbose_name = 'Ф.И.О.')
-	ser = models.PositiveIntegerField(default = 0000, verbose_name = 'Серия')
-	num = models.PositiveIntegerField(default = 000000, verbose_name = 'Номер')
-	date = models.DateField(verbose_name = 'Дата рождения (в формате дд.мм.гггг)')
-	given = models.TextField(blank = False, verbose_name = 'Кем выдан паспорт')
-	code = models.PositiveIntegerField(default = 000000, verbose_name = 'Код подразделения')
-	adress = models.CharField(max_length = 255, verbose_name = 'Адрес прописки')
-	voted = models.BooleanField(default = False, verbose_name = 'Голос')
-
-	def __str__(self):
-		return self.name
-
-	class Meta:
-		ordering = ['name']
-		verbose_name = 'Голосующий'
-		verbose_name_plural = 'Голосующие'
-
-# class User():
-# 	def __init__(self, ):
-# 		self. =
-# 		super().__inti__()
-
-# class Service(models.Model):
-# 	image = models.ImageField(upload_to = 'service', verbose_name = 'Служебная картинка')
-
-# 	def __str__(self):
-# 		return self.image.verbose_name
-
-# 	class Meta:
-# 		ordering = ['image']
-# 		verbose_name = 'Служебная картинка'
-# 		verbose_name_plural = 'Служебные картинки'

@@ -1,0 +1,25 @@
+{% extends 'base_2.html' %}
+
+{% block content %}
+	{% if not request.user.is_authenticated %}
+	<h2 class="alert alert-light uhead3 mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
+	{% endif %}
+	<div class="card-columns mt-3">
+	{% for candidat in candidats %}
+			<div class="card">
+				<img src="{{ candidat.image.url }}" class="card-img-top" alt="{{ candidat.name }}">
+				<div class="card-body text-dark">
+					<h5 class="card-title">{{ candidat.name }}</h5>
+					<p class="card-text">{{ candidat.move|truncatewords:15 }}</p>
+					<div class="mb-3">
+					{% if request.user.is_authenticated and not voted and time < date_ended %}
+						<a href="{{ candidat.get_absolute_url }}" class="btn btn-primary btn-block">Проголосовать</a>
+					{% else %}
+						<a href="{{ candidat.get_absolute_url }}" class="btn btn-primary btn-block">Посмотреть</a>
+					{% endif%}
+					</div>
+				</div>
+			</div>
+	{% endfor %}
+	</div>
+{% endblock %}

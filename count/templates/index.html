@@ -1,0 +1,27 @@
+{% extends 'base_2.html' %}
+
+{% block title %}
+Итоги - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div class="card-columns mt-3">
+	{% for theme in themes %}
+		<div class="card">
+			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
+			<div class="card-body">
+				<h5 class="card-title">{{ theme.name }}</h5>
+				<p class="card-text">{{ theme.description }}</p>
+				<div class="mb-2">
+					{% if theme.date_ended > time %}
+					<h5 class="card-tex">Голосование окончится {{ theme.date_ended }}</h5>
+					{% else %}
+					<h5 class="card-text">Голосование окончено {{ theme.date_ended }}</h5>
+					<a href="{{ theme.get_count_url }}" class="btn btn-primary btn-block">Посмотреть</a>
+					{%endif %}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}

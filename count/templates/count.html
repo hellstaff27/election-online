@@ -1,21 +1,20 @@
 {% extends 'base_2.html' %}
 
 {% block title %}
-Подсчёт голосов - {{ block.super }}
+Места - {{ block.super }}
 {% endblock %}
 
 {% block content %}
+	<div class="card-columns mt-3">
 	{% for candidat in candidats %}
-				<div class="card col-lg-6 mt-5 col-sm-6 col-12 col-xl-4" style="width: 18rem;">
-					<img src="{{ candidat.image.url }}" class="card-img-top mt-3" alt="{{ candidat.name }}">
-					<div class="card-body">
-						<h5 class="card-title">{{ candidat.name }}</h5>
-						<p class="card-text">{{ candidat.move }}</p>
-					</div>
-					<div class="mb-3">
-						<!-- <a href="{% url 'check_url' id=candidat.id %}" class="btn btn-primary ubtn">Проголосовать</a> -->
-						<h5 class="card-title" style="text-align: center;">{{ candidat.votes }} голосов</h5>
-					</div>
-				</div>
+		<div class="card">
+			<img src="{{ candidat.image.url }}" class="card-img-top" alt="{{ candidat.name }}">
+			<div class="card-body">
+				<h5 class="card-title">{{ candidat.name }}</h5>
+				<p class="card-text">{{ candidat.move|truncatewords:15 }}</p>
+				<h5 class="mb-3 text-center">Количество голосов: {{ candidat.votes }}</h5>
+			</div>
+		</div>
 	{% endfor %}
+	</div>
 {% endblock %}
