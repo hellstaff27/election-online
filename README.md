@@ -1,4 +1,3 @@
-#election-online
 This project is an online-resource for voting and elections. 
 ============================================================
 
@@ -10,8 +9,20 @@ This project is an online-resource for voting and elections.
    Starting server from command line:
    > python manage.py runserver
    
-   > it's running now on http://127.0.0.1:8000. It's local server, cause we haven't any server, but it's enough for debug.
+   > start http://127.0.0.1:8000
+   
+   > now server's running on local ip
+ 
+  
+  The project is located on a local server temporarily: in the future, it should have its own data center with reliable protection against DoS and DDoS attacks.
+  
+  Project is under development. Wait for your offers.
   
   
   
-  The project is under development. Project be under development by a team of programmers from Russia. Wait for your offers. Owners of the project: Nikita Pavlov, Dmitry Matveev, Platon Trofimov, Aida Faizrakhmanova, Artem Naumov, Victor Ivanov, Svetoslav Esipov, Daniil Goncharov, Pavel Pavlov, Zakhar Titov, Aleksandra Ledyaikina. 
+ *The authors: Nikita Pavlov, Dmitry Matveev, Plato Trofimov, Aida Fayzrakhmanova, Artem Naumov, Victor Ivanov, Svyatoslav Yesipov, Daniil Goncharov, Pavel Pavlov, Zahar Titov, Alexandra Ledyaykina.*
+ 
+ 
+
+
+**MacroDev Studio 2020**
