@@ -2,9 +2,9 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 
 class UserManager(BaseUserManager):
-	def create_user(self, username, email, password, **extra_fields):
-		if not email:
-			raise ValueError(_('Email должен быть указан'))
+	def create_user(self, username, password, email, **extra_fields):
+		if not username:
+			raise ValueError(_('Логин должен быть указан'))
 			
 		username = self.model.normalize_username(username)
 		email = self.normalize_email(email)
@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
 
 		return user
 
-	def create_superuser(self, username, email, password, **extra_fields):
+	def create_superuser(self, username, password, email, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
 		extra_fields.setdefault('is_active', True)
@@ -24,4 +24,4 @@ class UserManager(BaseUserManager):
 		if extra_fields.get('is_superuser') is not True:
 			raise ValueError(_('Сепер пользователь должен иметь is_superuser=True'))
 
-		return self.create_user(username, email, password, **extra_fields)
+		return self.create_user(username, password, email, **extra_fields)

@@ -16,11 +16,11 @@ class UserChangeForm(UserChangeForm):
 		fields = ['username', 'email', 'ser', 'num', 'date', 'given', 'code', 'adress']
 
 class AuthForm(forms.Form):
-	email = forms.EmailField(widget = forms.EmailInput(attrs = {'class': 'form-control', 'placeholder': 'your@mail.com', 'autofocus': True}), max_length = 255, label = 'E-mail')
+	username = forms.CharField(widget = forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Ваш логин', 'autofocus': True}), max_length = 255, label = 'Ваше имя')
 	password = forms.CharField(widget = forms.PasswordInput(attrs = {'class': 'form-control'}), max_length = 255, label = 'Пароль')
 
 class RegistForm(forms.Form):
-	username = forms.CharField(max_length = 255, label = 'Ф.И.О.', widget = forms.TextInput(attrs = {'class': 'form-control', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}))
+	username = forms.CharField(max_length = 255, label = 'Ваше имя', widget = forms.TextInput(attrs = {'class': 'form-control mw-100', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}))
 	email = forms.EmailField(max_length = 255, label = 'E-mail', widget = forms.EmailInput(attrs = {'class': 'form-control', 'placeholder': 'your@mail.com'}))
 	ser = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': '1448'}), label = 'Серия паспорта')
 	num = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': '123456'}), label = 'Номер паспорта')
@@ -34,10 +34,10 @@ class RegistForm(forms.Form):
 	error_messages = {
 		'password_mismatch': 'Пароли не сходятся',
 		'date_mismatch': 'Ваш возраст слишком мал',
-		# 'ser_and_num_mismatch': 'Такая серия и номер паспорта уже принадлежат одному гражданину',
 		'ser_mismatch': 'Неправильный формат серии',
 		'num_mismatch': 'Неправильный формат номера',
 		'code_mismatch': 'Неправильный формат кода подразделения',
+		'email_mismatch': 'Такой e-mail уже занят',
 	}
 
 	def clean_password2(self):
@@ -77,18 +77,26 @@ class RegistForm(forms.Form):
 				self.error_messages['code_mismatch']
 				)
 		return code
-
-class ConfirmForm(forms.Form):
-	confirm = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'autofocus': True}), label = 'Код подтверждения')
-
-	error_messages = {
-		'confirm_mismatch': 'Код введён неверно'
-	}
-
-	def clean_confirm(self):
-		confirm = self.cleaned_data.get('confirm')
-		if confirm and len(str(confirm)) != 6:
-			raise form.ValidationError(
-				self.error_messages['confirm_mismatch']
+	def clean_email(self):
+		email = self.cleaned_data.get('email')
+		user = get_user_model().objects.filter(email = email)
+		if email and len(user) > 0:
+			raise forms.ValidationError(
+				self.error_messages['email_mismatch']
 				)
-		return confirm
+		return email
+
+# class ConfirmForm(forms.Form):
+# 	confirm = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'autofocus': True}), label = 'Код подтверждения')
+
+# 	error_messages = {
+# 		'confirm_mismatch': 'Код введён неверно'
+# 	}
+
+# 	def clean_confirm(self):
+# 		confirm = self.cleaned_data.get('confirm')
+# 		if confirm and len(str(confirm)) != 6:
+# 			raise forms.ValidationError(
+# 				self.error_messages['confirm_mismatch']
+# 				)
+# 		return confirm

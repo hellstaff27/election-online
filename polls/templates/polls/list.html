@@ -2,11 +2,14 @@
 
 {% block content %}
 	{% if not request.user.is_authenticated %}
-	<h2 class="alert alert-light uhead3 mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
+	<h2 class="alert alert-light mx-auto mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
+	{% endif %}
+	{% if time > date_ended %}
+	<h2 class="alert alert-danger mt-3 mx-auto">Голосование окончено</h2>
 	{% endif %}
 	<div class="card-columns mt-3">
 	{% for candidat in candidats %}
-			<div class="card">
+			<div class="card shadow">
 				<img src="{{ candidat.image.url }}" class="card-img-top" alt="{{ candidat.name }}">
 				<div class="card-body text-dark">
 					<h5 class="card-title">{{ candidat.name }}</h5>

@@ -5,8 +5,9 @@ from .manager import UserManager
 
 # Create your models here.
 class User(AbstractUser):
-	username = models.CharField(max_length = 255, verbose_name = 'Ф.И.О.')
-	email = models.EmailField(verbose_name = 'email адрес', unique = True)
+	# username = models.CharField(max_length = 255, verbose_name = 'Ф.И.О.')
+	username = models.CharField(verbose_name = 'Логин', unique = True, max_length = 255)
+	email = models.EmailField(verbose_name = 'email адрес', blank = True)
 	ser = models.PositiveIntegerField(default = 0, verbose_name = 'Серия')
 	num = models.PositiveIntegerField(default = 0, verbose_name = 'Номер')
 	date = models.DateField(verbose_name = 'Дата рождения (в формате дд.мм.гггг)')
@@ -14,8 +15,9 @@ class User(AbstractUser):
 	code = models.PositiveIntegerField(default = 0, verbose_name = 'Код подразделения')
 	adress = models.CharField(max_length = 255, verbose_name = 'Адрес прописки')
 
-	USERNAME_FIELD = 'email'
-	REQUIRED_FIELDS = ['date', 'username',]
+	EMAIL_FIELD = 'email'
+	USERNAME_FIELD = 'username'
+	REQUIRED_FIELDS = ['date', 'email']
 
 	objects = UserManager()
 

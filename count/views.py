@@ -8,14 +8,13 @@ from polls.models import *
 def index(request):
 	themes = Theme.objects.all()
 	time = timezone.now()
-	own = 'count'
-	return render(request, 'index.html', {'themes': themes, 'time': time, 'own': own})
+	return render(request, 'index.html', {'themes': themes, 'time': time})
 
 def count(request, id):
 	theme = Theme.objects.get(pk = id)
 	own = 'count'
 	if theme.date_ended < timezone.now():
 		candidats = theme.candidat_set.order_by('-votes')
-		return render(request, 'count.html', {'candidats': candidats, 'own': own})
+		return render(request, 'count.html', {'candidats': candidats})
 	else:
 		return redirect(reverse('count:index_url'))

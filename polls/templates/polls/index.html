@@ -1,12 +1,10 @@
 {% extends 'base_2.html' %}
 
 {% block content %}
-	{% if not request.user.is_authenticated %}
-	<h2 class="alert alert-light uhead3 mt-3">Чтобы проголосовать, сначала <a href="{% url 'users:auth_url' %}">войдите в аккаунт</a></h2>
-	{% endif%}
+	{% include 'includes/login_card.html' %}
 	<div class="card-columns mt-3">
 	{% for theme in themes %}
-		<div class="card">
+		<div class="card shadow">
 			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
 			<div class="card-body text-dark">
 				<h5 class="card-title">{{ theme.name }}</h5>

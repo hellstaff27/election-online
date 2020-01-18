@@ -25,7 +25,7 @@ SECRET_KEY = '86bak_sr@6-*7kv)quvbc*6hetz+xgs+$7%n7qhpfs1&ojc%6z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
 
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = 'users:auth_url'
@@ -71,11 +71,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'polls.context_processor.clean_session',
             ],
         },
     },
 ]
+
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'django.core.context_processors.request',
+# )
 
 WSGI_APPLICATION = 'mypolls.wsgi.application'
 
@@ -119,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
