@@ -86,9 +86,9 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'polls',
-        'PASSWORD': 'Aueaueaue1!',
+        'PASSWORD': '',
         'USER': 'root',
-        'HOST': '194.67.105.192',
+        'HOST': 'localhost',
         'PORT': '8001',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
