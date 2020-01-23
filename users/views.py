@@ -26,9 +26,10 @@ class Auth(View):
 				if form.is_valid():
 					cd = form.cleaned_data
 					password = str(hashlib.sha256(str(cd['password']).encode('utf-8')).hexdigest())
+					email = str(hashlib.sha256(str(cd['email']).encode('utf-8')).hexdigest())
 					# for i,v in cd.items():
 					# 	new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
-					user = authenticate(request, username = cd['username'], password = password)
+					user = authenticate(request, email = email, password = password)
 					if user is not None:
 						if user.is_active:
 							login(request, user)
