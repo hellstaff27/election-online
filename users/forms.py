@@ -39,7 +39,7 @@ class RegistForm(forms.ModelForm):
 			'num': forms.NumberInput(attrs = {'class': 'form-control text-center', 'placeholder': '123456', 'maxlength' : 6}),
 			'date': forms.DateInput(attrs = {'class': 'form-control text-center', 'placeholder': '1998-01-02'}),
 			'given': forms.Textarea(attrs = {'class': 'form-control text-center', 'placeholder': 'МВД России по Чувашской Республике'}),
-			'code': forms.TextInput(attrs = {'class': 'form-control text-center', 'placeholder': '123456', 'maxlength' : 6}),
+			'code': forms.NumberInput(attrs = {'class': 'form-control text-center', 'placeholder': '123456', 'maxlength' : 6}),
 			'adress': forms.TextInput(attrs = {'class': 'form-control text-center', 'placeholder': 'Чебоксары Гагарина 22 120'}),
 		}
 		labels = {
