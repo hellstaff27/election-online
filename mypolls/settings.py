@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(l4hxo%)*i0e(yf!ow@%rdr1h_x4*099ur6jnba6orlo2-v5@0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['194-67-105-192.cloudvps.regruhosting.ru', '194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
 
@@ -135,9 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]
