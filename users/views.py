@@ -29,7 +29,7 @@ class Auth(View):
 					email = str(hashlib.sha256(str(cd['email']).encode('utf-8')).hexdigest())
 					# for i,v in cd.items():
 					# 	new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
-					user = authenticate(request, email = email, password = password)
+					user = authenticate(request, email = email, password = password, username = None)
 					if user is not None:
 						if user.is_active:
 							login(request, user)
