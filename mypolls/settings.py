@@ -22,9 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(l4hxo%)*i0e(yf!ow@%rdr1h_x4*099ur6jnba6orlo2-v5@0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
+ALLOWED_HOSTS = ['194-67-105-192.cloudvps.regruhosting.ru', '194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
 
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = 'users:auth_url'
@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'mypolls.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mypolls',
-        'PASSWORD': '',
+        'NAME': 'polls',
+        'PASSWORD': 'Aueaueaue1!',
         'USER': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': '194.67.105.192',
+        'PORT': '8001',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
@@ -140,7 +140,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

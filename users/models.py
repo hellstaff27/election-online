@@ -8,11 +8,11 @@ class User(AbstractUser):
 	# username = models.CharField(max_length = 255, verbose_name = 'Ф.И.О.')
 	username = models.CharField(verbose_name = 'Имя', unique = True, max_length = 255)
 	email = models.EmailField(verbose_name = 'email адрес', blank = True, max_length = 255,)
-	ser = models.CharField(default = 0, verbose_name = 'Серия', max_length = 255,)
-	num = models.CharField(default = 0, verbose_name = 'Номер', max_length = 255,)
+	ser = models.CharField(verbose_name = 'Серия', max_length = 4,)
+	num = models.CharField(verbose_name = 'Номер', max_length = 8,)
 	date = models.CharField(verbose_name = 'Дата рождения (в формате дд.мм.гггг)', max_length = 255,)
 	given = models.CharField(blank = False, verbose_name = 'Кем выдан паспорт', max_length = 255,)
-	code = models.CharField(default = 0, verbose_name = 'Код подразделения', max_length = 255,)
+	code = models.CharField(verbose_name = 'Код подразделения', max_length = 6,)
 	adress = models.CharField(max_length = 255, verbose_name = 'Адрес прописки')
 
 	EMAIL_FIELD = 'email'
