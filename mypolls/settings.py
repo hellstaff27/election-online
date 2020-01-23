@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os, sys
-from . import EmailAuth
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -35,10 +34,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Application definition
-
-AUTHENTICATION_BACKENDS = [
-    'EmailAuth.EmailAuthBackend'
-]
 
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
