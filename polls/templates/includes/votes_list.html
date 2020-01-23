@@ -1,0 +1,5 @@
+{% if votes %}
+	{% for vote in votes %}
+	Вы проголосовали за <strong>{{ vote.candidat }}</strong> в {{ vote.date_voted }}<br>
+	{% endfor %}
+{% endif %}

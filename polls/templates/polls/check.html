@@ -12,10 +12,10 @@
 					<div class="card-body text-dark">
 						<h5 class="card-title">{{ candidat.name }}</h5>
 						<p class="card-text">{{ candidat.move }}</p>
-						<a href="{% url 'polls:theme_url' theme_id=candidat.theme.id %}" class="btn btn-primary btn-block">Назад</a>
 						{% if request.user.is_authenticated and not voted and time < date_ended %}
 						<a href="{{ candidat.get_vote_url }}" class="btn btn-danger btn-block mt-2">Проголосовать</a>
 						{% endif %}
+						<a href="{% url 'polls:theme_url' theme_id=candidat.theme.id %}" class="btn btn-primary btn-block">Назад</a>
 					</div>
 				</div>
 {% endblock %}

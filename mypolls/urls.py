@@ -24,3 +24,5 @@ urlpatterns = [
     path('users/', include('users.urls', namespace = 'users')),
     path('count/', include('count.urls', namespace = 'count')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+handler404 = 'polls.views.handler404'

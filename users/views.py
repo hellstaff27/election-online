@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import get_user_model, authenticate, login
+from django.views.generic import CreateView, View
 # from django.core.mail import send_mail
 # from django.conf import settings
 # from django.template.loader import render_to_string
@@ -8,58 +9,91 @@ from django.contrib.auth import get_user_model, authenticate, login
 from .models import *
 from .forms import AuthForm, RegistForm
 # from random import randint
+import hashlib
 
 # Create your views here.
-def auth(request):
-	if request.method == 'POST':
-		form = AuthForm(request.POST)
-		if form.is_valid():
-			cd = form.cleaned_data
-			user = authenticate(username = cd['username'], password = cd['password'])
-			if user is not None:
-				if user.is_active:
-					login(request, user)
-					return redirect(reverse('polls:index_url'))
+class Auth(View):
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			form = AuthForm()
+			return render(request, 'users/auth.html', {'form': form})
+		else:
+			return redirect(reverse('polls_index_url'))
+	def post(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			if request.method == 'POST':
+				form = AuthForm(request.POST)
+				if form.is_valid():
+					cd = form.cleaned_data
+					password = str(hashlib.sha256(str(cd['password']).encode('utf-8')).hexdigest())
+					# for i,v in cd.items():
+					# 	new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
+					user = authenticate(request, username = cd['username'], password = password)
+					if user is not None:
+						if user.is_active:
+							login(request, user)
+							return redirect(reverse('polls:index_url'))
+						else:
+							answer = 'Данный аккаунт является неактивным'
+							return render(request, 'users/auth.html', {'form': form, 'answer': answer})
+					else:
+						answer = 'Такого аккаунта не найдено'
+						return render(request, 'users/auth.html', {'form': form, 'answer': answer})
 				else:
-					answer = 'Данный аккаунт является неактивным'
-					return render(request, 'users/auth.html', {'form': form, 'answer': answer})
+					return render(request, 'users/auth.html', {'form': form})
 			else:
-				answer = 'Такого аккаунта не найдено'
-				return render(request, 'users/auth.html', {'form': form, 'answer': answer})
+				form = AuthForm()
+				return render(request, 'users/auth.html', {'form': form})
 		else:
-			answer = 'Данные не подлежать валидации'
-			return render(request, 'users/auth.html', {'form': form, 'answer': answer})
-	else:
-		form = AuthForm()
-		return render(request, 'users/auth.html', {'form': form})
+			return redirect(reverse('polls:index_url'))
 
-def regist(request):
-	if request.method == 'POST':
-		form = RegistForm(request.POST)
-		if form.is_valid():
-			cd = form.cleaned_data
-			user = authenticate(username = cd['username'], password = cd['password2'])
-			try:
-				check_user = get_user_model().objects.get(ser = cd['ser'], num = cd['num'])
-			except User.DoesNotExist:
-				check_user = None
-			if user is None and check_user is None:
-				user = User.objects.create_user(username = cd['username'], email = cd['email'], password = cd['password2'], date = cd['date'], ser = cd['ser'], \
-					num = cd['num'], given = cd['given'], code = cd['code'], adress= cd['adress'])
-				login(request, user)
-				# request.session['new_user'] = cd
-				# request.session['confirm_code'] = randint(111111, 666666)
-				# return redirect(reverse('users:check_email_url'))
-				return redirect(reverse('polls:index_url'))
-			else:
-				answer = 'Такой аккаунт или e-mail уже существует'
-				return render(request, 'users/regist.html', {'form': form, 'answer': answer})
+class Regist(View):
+	def get(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			form = RegistForm()
+			return render(request, 'users/regist.html', {'form': form})
 		else:
-			answer = 'Данные не подлежать валидации'
-			return render(request, 'users/regist.html', {'form': form, 'answer': answer})
-	else:
-		form = RegistForm()
-		return render(request, 'users/regist.html', {'form': form})
+			return redirect(reverse('polls:index_url'))
+
+	def post(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			if request.method == 'POST':
+				form = RegistForm(request.POST)
+				if form.is_valid():
+					cd = form.cleaned_data
+					new_cd = {}
+					for i,v in cd.items():
+						new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
+					user = authenticate(username = new_cd['username'], password = new_cd['password2'])
+					try:
+						check_user = get_user_model().objects.get(ser = cd['ser'], num = cd['num'])
+					except User.DoesNotExist:
+						check_user = None
+					if user is None and check_user is None: 
+						user = get_user_model().objects.create_user(username = cd['username'], email = new_cd['email'], password = new_cd['password2'], date = new_cd['date'], ser = new_cd['ser'], \
+							num = new_cd['num'], given = new_cd['given'], code = new_cd['code'], adress= new_cd['adress'])
+						login(request, user)
+						return redirect(reverse('polls:index_url'))
+					else:
+						answer = 'Аккаунт с такими данными уже существует'
+						return render(request, 'users/regist.html', {'form': form, 'answer': answer})
+				else:
+					return render(request, 'users/regist.html', {'form': form})
+			else:
+				form = RegistForm()
+				return render(request, 'users/regist.html', {'form': form})
+		else:
+			return redirect(reverse('polls:index_url'))
+
+
+
+
+
+
+
+# request.session['new_user'] = cd
+# request.session['confirm_code'] = randint(111111, 666666)
+# return redirect(reverse('users:check_email_url'))
 
 # def check_email(request):
 # 	check_code = request.session.get('confirm_code')

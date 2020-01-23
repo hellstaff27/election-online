@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,7 +24,7 @@ SECRET_KEY = '(l4hxo%)*i0e(yf!ow@%rdr1h_x4*099ur6jnba6orlo2-v5@0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['194-67-105-192.cloudvps.regruhosting.ru', '194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
+ALLOWED_HOSTS = ['194.67.105.192', 'www.online-voting.ru', 'online-voting.ru', '127.0.0.1']
 
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = 'users:auth_url'
@@ -71,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'polls.context_processor.votes',
             ],
         },
     },
@@ -85,9 +85,10 @@ WSGI_APPLICATION = 'mypolls.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'polls',
+        'NAME': 'mypolls',
         'PASSWORD': '',
         'USER': 'root',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
@@ -133,7 +134,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

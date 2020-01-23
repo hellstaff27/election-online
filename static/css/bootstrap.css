@@ -1,4 +1,4 @@
-/*!
+!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
@@ -4919,21 +4919,54 @@ input[type="button"].btn-block {
   margin-bottom: 0.75rem;
 }
 
-@media (min-width: 576px) {
+.card-columns {
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  column-count: 3;
+  -webkit-column-gap: 1.25rem;
+  -moz-column-gap: 1.25rem;
+  column-gap: 1.25rem;
+  orphans: 1;
+  widows: 1;
+}
+  .card-columns .card {
+  display: inline-block;
+  width: 100%;
+}
+
+@media (max-width: 990px) {
   .card-columns {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-    -webkit-column-gap: 1.25rem;
-    -moz-column-gap: 1.25rem;
-    column-gap: 1.25rem;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 1.3rem;
+    -moz-column-gap: 1.3rem;
+    column-gap: 1.3rem;
     orphans: 1;
     widows: 1;
   }
-  .card-columns .card {
+    .card-columns .card {
     display: inline-block;
     width: 100%;
   }
+}
+
+@media (max-width: 488px) {
+  .card-columns {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+    -webkit-column-gap: 1.5rem;
+    -moz-column-gap: 1.5rem;
+    column-gap: 1.5rem;
+    orphans: 1;
+    widows: 1;
+  }
+}
+
+.card-columns .card {
+  display: inline-block;
+  width: 100%;
 }
 
 .accordion > .card {
@@ -6020,9 +6053,9 @@ a.close.disabled {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1040;
   width: 100vw;
   height: 100vh;
+  z-index: 1040;
   background-color: #000;
 }
 
@@ -10221,4 +10254,4 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=bootstrap.css.map 

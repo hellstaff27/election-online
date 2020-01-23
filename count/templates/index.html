@@ -11,7 +11,31 @@
 			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
 			<div class="card-body">
 				<h5 class="card-title">{{ theme.name }}</h5>
-				<p class="card-text">{{ theme.description }}</p>
+				<p class="card-text">{{ theme.description }}
+					{% if theme.description|length > 60 %}
+						<a href="" class="" data-toggle="modal" data-target="#exampleModalScrollable">
+							Полностью
+						</a>
+						<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-scrollable" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalScrollableTitle">{{ theme.name }}</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										{{ theme.description }}
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+				</p>
 				<div class="mb-2">
 					{% if theme.date_ended > time %}
 					<h5 class="card-tex">Голосование окончится {{ theme.date_ended }}</h5>

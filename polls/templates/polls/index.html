@@ -3,23 +3,49 @@
 {% block content %}
 	{% include 'includes/login_card.html' %}
 	<div class="card-columns mt-3">
+	{% if themes %}
 	{% for theme in themes %}
 		<div class="card shadow">
 			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
 			<div class="card-body text-dark">
 				<h5 class="card-title">{{ theme.name }}</h5>
-				<p class="card-text">{{ theme.description }}</p>
+				<p class="card-text">{{ theme.description }}
+					{% if theme.description|length > 60 %}
+					<a href="" data-toggle="modal" data-target="#{{ theme.name }}">
+						Полностью
+					</a>
+					<div class="modal fade" id="{{ theme.name }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-scrollable" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalScrollableTitle">{{ theme.name }}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									{{ theme.description }}
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</p>
 				<div class="mb-3">
 					{% if theme.date_ended > time %}
-					<h5 class="card-text">Начало: {{ theme.date_started }}</h5>
-					<h5 class="card-text">Окончание: {{ theme.date_ended }}</h5>
+					<p class="card-text">Начало: {{ theme.date_started }}</p>
+					<p class="card-text">Окончание: {{ theme.date_ended }}</p>
 					{% else %}
-					<h5 class="card-text">Голосование окончено {{ theme.date_ended }}</h5>
+					<p class="card-text">Голосование окончено {{ theme.date_ended }}</p>
 					{%endif %}
 				</div>
-				<a href="{{ theme.get_absolute_url }}" class="btn btn-primary btn-block">Посмотреть</a>
+				<a href="{{ theme.get_absolute_url }}" class="btn btn-primary btn-block btn-href">Перейти</a>
 			</div>
 		</div>
 	{% endfor %}
+	{% endif %}
 	</div>
 {% endblock %}

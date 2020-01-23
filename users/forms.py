@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from datetime import date, timedelta
 
@@ -16,75 +17,125 @@ class UserChangeForm(UserChangeForm):
 		fields = ['username', 'email', 'ser', 'num', 'date', 'given', 'code', 'adress']
 
 class AuthForm(forms.Form):
-	username = forms.CharField(widget = forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Ваш логин', 'autofocus': True}), max_length = 255, label = 'Ваше имя')
-	password = forms.CharField(widget = forms.PasswordInput(attrs = {'class': 'form-control'}), max_length = 255, label = 'Пароль')
-
-class RegistForm(forms.Form):
-	username = forms.CharField(max_length = 255, label = 'Ваше имя', widget = forms.TextInput(attrs = {'class': 'form-control mw-100', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}))
-	email = forms.EmailField(max_length = 255, label = 'E-mail', widget = forms.EmailInput(attrs = {'class': 'form-control', 'placeholder': 'your@mail.com'}))
-	ser = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': '1448'}), label = 'Серия паспорта')
-	num = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': '123456'}), label = 'Номер паспорта')
-	date = forms.DateField(widget = forms.DateInput(attrs = {'class': 'form-control', 'placeholder': '1998-01-02'}), label = 'Дата рождения (формат: гггг-мм-дд)')
-	given = forms.CharField(widget = forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'МВД России по Чувашской Республике'}), label = 'Кем выдан паспорт')
-	code = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': '123456'}), label = 'Код подразделения')
-	adress = forms.CharField(widget = forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Чебоксары Гагарина 11 23', 'autocomplete': False}), label = 'Адрес прописки')
-	password1 = forms.CharField(max_length = 255, label = 'Пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control'}))
-	password2 = forms.CharField(max_length = 255, label = 'Подтвердите пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control'}))
+	username = forms.CharField(max_length = 255, label = 'Ваше имя', widget = forms.TextInput(attrs = {'class': 'form-control text-center', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}))
+	password = forms.CharField(max_length = 255, label = 'Пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control text-center'}))
 
 	error_messages = {
-		'password_mismatch': 'Пароли не сходятся',
-		'date_mismatch': 'Ваш возраст слишком мал',
-		'ser_mismatch': 'Неправильный формат серии',
-		'num_mismatch': 'Неправильный формат номера',
-		'code_mismatch': 'Неправильный формат кода подразделения',
-		'email_mismatch': 'Такой e-mail уже занят',
+		'password_mismatch': 'Неправильный пароль',
+		'user_mismatch': 'Такого пользователя не обнаружено'
 	}
 
-	def clean_password2(self):
-		password1 = self.cleaned_data.get("password1")
-		password2 = self.cleaned_data.get("password2")
-		if password1 and password2 and password1 != password2:
-			raise forms.ValidationError(
-				self.error_messages['password_mismatch'],
-				code = 'password_mismatch',
-				)
-		return password2
-	def clean_date(self):
-		date = self.cleaned_data.get('date')
-		if date and date > date.today() - timedelta(days = 6570):
-			raise forms.ValidationError(
-				self.error_messages['date_mismatch'],
-				)
-		return date
-	def clean_ser(self):
-		ser = self.cleaned_data.get('ser')
-		if ser and len(str(ser)) != 4:
-			raise forms.ValidationError(
-				self.error_messages['ser_mismatch']
-				)
-		return ser
-	def clean_num(self):
-		num = self.cleaned_data.get('num')
-		if num and len(str(num)) != 6:
-			raise forms.ValidationError(
-				self.error_messages['num_mismatch']
-				)
-		return num
-	def clean_code(self):
-		code = self.cleaned_data.get('code')
-		if code and len(str(code)) != 6:
-			raise forms.ValidationError(
-				self.error_messages['code_mismatch']
-				)
-		return code
-	def clean_email(self):
-		email = self.cleaned_data.get('email')
-		user = get_user_model().objects.filter(email = email)
-		if email and len(user) > 0:
-			raise forms.ValidationError(
-				self.error_messages['email_mismatch']
-				)
-		return email
+class RegistForm(forms.ModelForm):
+	password1 = forms.CharField(max_length = 255, label = 'Пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control text-center'}))
+	password2 = forms.CharField(max_length = 255, label = 'Подтвердите пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control text-center'}))
+
+	class Meta:
+		model = get_user_model()
+		fields = ['username', 'email', 'ser', 'num', 'date', 'given', 'code', 'adress']
+		widgets = {
+			'username': forms.TextInput(attrs = {'class': 'form-control text-center', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}),
+			'email': forms.EmailInput(attrs = {'class': 'form-control text-center', 'placeholder': 'your@mail.com'}),
+			'ser': forms.NumberInput(attrs = {'class': 'form-control text-center', 'placeholder': '1448'}),
+			'num': forms.NumberInput(attrs = {'class': 'form-control text-center', 'placeholder': '123456'}),
+			'date': forms.DateInput(attrs = {'class': 'form-control text-center', 'placeholder': '1998-01-02'}),
+			'given': forms.Textarea(attrs = {'class': 'form-control text-center', 'placeholder': 'МВД России по Чувашской Республике'}),
+			'code': forms.TextInput(attrs = {'class': 'form-control text-center', 'placeholder': '123456'}),
+			'adress': forms.TextInput(attrs = {'class': 'form-control text-center', 'placeholder': 'Чебоксары Гагарина 22 120'}),
+		}
+		labels = {
+			'username': _('Ваше имя'),
+			'email': _('Ваш e-mail'),
+			'ser': _('Ваша серия'),
+			'num': _('Ваш номер'),
+			'date': _('Дата рождения (формат: гггг-мм-дд)'),
+			'given': _('Кем выдан паспорт'),
+			'code': _('Ваш код подразделения'),
+			'adress': _('Ваш адрес прописки'),
+			'password1': _('Ваш пароль'),
+			'password2': _('Подтвердите пароль'),
+		}
+
+		error_messages = {
+			'password2': {
+				'password_mismatch': 'Пароли не сходятся',
+			},
+			'date': {
+				'date_mismatch': 'Ваш возраст слишком мал'
+			},
+			'ser': {
+				'ser_mismatch': 'Неправильный формат серии',
+			},
+			'num': {
+				'num_mismatch': 'Неправильный формат номера',
+			},
+			'code': {
+				'code_mismatch': 'Неправильный формат кода подразделения',
+			},
+			'email': {
+				'email_mismatch': 'Такой e-mail уже занят',
+			},
+			'username': {
+				'not_allowed_name': 'Нельзя иметь аккаунт с таким именем',
+			} 
+		}
+
+		def clean_password2(self):
+			password1 = self.cleaned_data.get("password1")
+			password2 = self.cleaned_data.get("password2")
+			if password1 and password2 and password1 != password2:
+				raise forms.ValidationError(
+					self.error_messages['password2']['password_mismatch'],
+					code = 'password_mismatch',
+					)
+			return password2
+		def clean_date(self):
+			date = self.cleaned_data.get('date')
+			if date and date > date.today() - timedelta(days = 6570):
+				raise forms.ValidationError(
+					self.error_messages['date']['date_mismatch'],
+					code = 'date_mismatch'
+					)
+			return date
+		def clean_ser(self):
+			ser = self.cleaned_data.get('ser')
+			if ser and len(str(ser)) != 4:
+				raise forms.ValidationError(
+					self.error_messages['ser']['ser_mismatch'],
+					code = 'ser_mismatch'
+					)
+			return ser
+		def clean_num(self):
+			num = self.cleaned_data.get('num')
+			if num and len(str(num)) != 6:
+				raise forms.ValidationError(
+					self.error_messages['num']['num_mismatch'],
+					code = 'num_mismatch'
+					)
+			return num
+		def clean_code(self):
+			code = self.cleaned_data.get('code')
+			if code and len(str(code)) != 6:
+				raise forms.ValidationError(
+					self.error_messages['code']['code_mismatch'],
+					code = 'code_mismatch'
+					)
+			return code
+		def clean_email(self):
+			email = self.cleaned_data.get('email')
+			if email and get_user_model().objects.filter(email = email).count():
+				raise forms.ValidationError(
+					error_messages['email']['email_mismatch'],
+					code = 'email_mismatch'
+					)
+			return email
+		def clean_username(self):
+			username = self.cleaned_data.get('username')
+			if username and username.lower() == 'adminn':
+				raise forms.ValidationError(
+					error_messages['not_allowed_name'],
+					code = 'not_allowed_name'
+					)
+			return username
 
 # class ConfirmForm(forms.Form):
 # 	confirm = forms.IntegerField(widget = forms.NumberInput(attrs = {'class': 'form-control', 'autofocus': True}), label = 'Код подтверждения')

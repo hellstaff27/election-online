@@ -6,6 +6,35 @@ footer {
 	height: 145px;
 }
 
+.j-u {
+	height: 30vh;
+}
+
+.um-t {
+		margin-top: 10vh;
+	}
+
+@media (min-width: 1024px) {
+	.j-u {
+		height: 50vh;
+	}
+
+	.um-t {
+		margin-top: 10vh;
+	}
+}
+@media (max-width: 768px) {
+	.um-t {
+		margin-top: 3vh;
+	}
+}
+
+@media (max-width: 450px) {
+	.um-t {
+		margin-top: 0vh;
+	}
+}
+
 nav {
 	height: 72px;
 	-webkit-transition: all 0.4s ease;
@@ -31,12 +60,48 @@ nav a.brand-custom {
 	transition: all 0.4s ease;
 }
 
+@media (max-width: 350px) {
+	nav {
+		height: 58px;
+	}
+	header nav.sticky {
+		height: 46px;
+	}
+
+	nav a.navbar-brand {
+		font-size: 1.5rem;
+	}
+	nav a.brand-custom {
+		font-size: 1.25rem;
+	}
+}
+
 nav img.img-brand {
 	width: 56px;
 }
 
 nav img.img-custom {
 	width: 46px;
+}
+
+nav li.nav-item:hover {
+	background-color: #b5dcf7;
+	border-radius: 10px;
+}
+
+.balance {
+	position: relative;
+	top: 11px;
+}
+
+@media (max-width: 991px) {
+	nav li.nav-item:hover {
+		border-radius: 0;
+	}
+	nav li.nav-item:last-child:hover {
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+	}
 }
 
 .ualert-danger {
@@ -70,8 +135,14 @@ nav img.img-custom {
 	background-image: -webkit-linear-gradient(top,rgba(255,255,255,.7),rgba(255,255,255,.8) 52%,rgba(255,255,255,.1) 50%,rgba(255,255,255,0));
 	color: #3A3A3A;
 	border-bottom-color: #517da8;
-	padding: 3px 23px 8px;
+	padding: 3px 23px 10px;
 	height: 45px;
+}
+
+@media (max-width: 350px) {
+	.button-login-title {
+		padding: 3px 3px 10px;
+	}
 }
 
 .text-title {
