@@ -35,6 +35,10 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Application definition
 
+AUTHENTICATION_BACKENDS = [
+    'users.EmailAuthBackend'
+]
+
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'polls.apps.PollsConfig',
