@@ -35,11 +35,11 @@ class RegistForm(forms.ModelForm):
 		widgets = {
 			'username': forms.TextInput(attrs = {'class': 'form-control', 'autofocus': True, 'placeholder': 'Иванов Виктор Владимирович'}),
 			'email': forms.EmailInput(attrs = {'class': 'form-control', 'placeholder': 'your@mail.com'}),
-			'ser': forms.CharInput(attrs = {'class': 'form-control', 'placeholder': '1448', 'maxlength' : 4, 'pattern' : '\d*'}),
-			'num': forms.CharInput(attrs = {'class': 'form-control', 'placeholder': '123456', 'maxlength' : 6, 'pattern' : '\d*'}),
+			'ser': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': '1448', 'maxlength' : 4, 'pattern' : '\d*'}),
+			'num': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': '123456', 'maxlength' : 6, 'pattern' : '\d*'}),
 			'date': forms.DateInput(attrs = {'class': 'form-control', 'placeholder': '1998-01-02'}),
 			'given': forms.Textarea(attrs = {'class': 'form-control', 'placeholder': 'МВД России по Чувашской Республике'}),
-			'code': forms.CharInput(attrs = {'class': 'form-control', 'placeholder': '123456', 'maxlength' : 6, 'pattern' : '\d*'}),
+			'code': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': '123456', 'maxlength' : 6, 'pattern' : '\d*'}),
 			'adress': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Чебоксары Гагарина 22 120'}),
 		}
 		labels = {
