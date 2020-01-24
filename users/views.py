@@ -26,9 +26,8 @@ class Auth(View):
 				if form.is_valid():
 					cd = form.cleaned_data
 					password = str(hashlib.sha256(str(cd['password']).encode('utf-8')).hexdigest())
-					# for i,v in cd.items():
-					# 	new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
-					user = authenticate(request, username = cd['username'], password = password)
+					email = str(hashlib.sha256(str(cd['email']).encode('utf-8')).hexdigest())
+					user = authenticate(request, username = email, password = password)
 					if user is not None:
 						if user.is_active:
 							login(request, user)
@@ -64,9 +63,9 @@ class Regist(View):
 					new_cd = {}
 					for i,v in cd.items():
 						new_cd[i] = hashlib.sha256(str(v).encode('utf-8')).hexdigest()
-					user = authenticate(username = new_cd['username'], password = new_cd['password2'])
+					user = authenticate(username = new_cd['email'], password = new_cd['password2'])
 					try:
-						check_user = get_user_model().objects.get(ser = cd['ser'], num = cd['num'])
+						check_user = get_user_model().objects.get(ser = new_cd['ser'], num = new_cd['num'])
 					except User.DoesNotExist:
 						check_user = None
 					if user is None and check_user is None: 

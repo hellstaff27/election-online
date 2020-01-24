@@ -7,7 +7,7 @@ footer {
 }
 
 .j-u {
-	height: 30vh;
+	height: 25vh;
 }
 
 .um-t {
@@ -16,7 +16,7 @@ footer {
 
 @media (min-width: 1024px) {
 	.j-u {
-		height: 50vh;
+		height: 40vh;
 	}
 
 	.um-t {

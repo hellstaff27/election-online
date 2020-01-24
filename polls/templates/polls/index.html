@@ -9,8 +9,8 @@
 			<img src="{{ theme.image.url }}" class="card-img-top" alt="{{ theme.name }}">
 			<div class="card-body text-dark">
 				<h5 class="card-title">{{ theme.name }}</h5>
-				<p class="card-text">{{ theme.description }}
-					{% if theme.description|length > 60 %}
+				<p class="card-text">{{ theme.description|truncatewords:15 }}... <br>
+					{% if theme.description|wordcount > 15 %}
 					<a href="" data-toggle="modal" data-target="#{{ theme.name }}">
 						Полностью
 					</a>

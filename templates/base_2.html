@@ -1,16 +1,17 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Сайт для проведения онлайн голосований">
-	<meta name="author" content="HVC Studio 2020">
+	<meta name="author" content="Diamond Team 2020">
 	<meta name="keywords" content="голосования, конфендециальность, честность, нефальцифицированность">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="referrer" content="origin"/>
-	{% load static %}
 	<link rel="icon" type="image/x-icon" href="{% static 'images/vote.png' %}">
-	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type='text/css'>
-	<link rel="stylesheet" href="{% static 'css/style.css' %}" type='text/css'>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	<title>{% block title %}online-voting.ru{% endblock %}</title>
 	<script src="{% static 'js/jquery.js' %}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -27,7 +28,7 @@
 			<small>идет загрузка</small>
 		</div>
 	</div>
-	<div class="jumbotron text-center text-light j-u" style="margin-bottom:0; background-image: url({% static 'images/city.jpg' %}); background-size: 100% 100%;">
+	<div class="jumbotron text-center text-light j-u" style="margin-bottom:0; background-image: url({% static 'images/moscow2.jpg' %}); background-size: 100% 100%;">
 	  <h1 class="um-t">Выберете своё будущее...</h1>
 	  <h3>Дистанционно!</h3> 
 	</div>
@@ -48,13 +49,18 @@
 					<li class="nav-item text-center">
 						<a class="nav-link" href="{% url 'count:index_url' %}">Итоги</a>
 					</li>
+					{% if not request.user.is_authenticated %}
 					<li class="nav-item text-center">
-						{% if not request.user.is_authenticated %}
-						<a class="nav-link" href="{% url 'users:auth_url' %}">Авторизация</a>
-						{% else %}
-						<a class="nav-link" href="{% url 'users:logout_url' %}">Выход</a>
-						{% endif %}
+						<a href="{% url 'users:auth_url' %}" class="nav-link">Аторизация</a>
 					</li>
+					<li class="nav-item text-center">
+						<a href="{% url 'users:regist_url' %}" class="nav-link">Регистрация</a>
+					</li>
+					{% else %}
+					<li class="nav-item text-center">
+						<a href="{% url 'users:logout_url' %}" class="nav-link">Выход</a>
+					</li>
+					{% endif %}
 					{% if request.user.is_authenticated %}
 					<li class="nav-item text-center">
 						<a href="#" class="nav-link history" data-toggle="modal" data-target="#history">
@@ -114,10 +120,12 @@
 	{% endif %}
 
 	<footer class="mt-5" style="background-color: #e3f2fd;">
-		<div class="navbar-brand ml-3 text-lg">COPYRIGHT 2020 Все права <wbr>защищены</div>
-		<div class="ml-3 text-sm">Копирование влечёт за собой уголовную ответственность!</div>
-		<div class="ml-3 text-sm">Designed by HVC Studio 2020</div>
-		<div id="votes_list"></div>
+		<div class="navbar-brand ml-3 text-lg">COPYRIGHT 2020 Все права <wbr>защищены</div><br>
+		<div style="display: inline-block;">
+			<div class="ml-3 text-sm">Копирование влечёт за собой уголовную ответственность!</div>
+			<div class="ml-3 text-sm">Developed by Diamond Team 2020</div>
+		</div>
+		<img src="{% static 'images/logo.png' %}" alt="" title="Diamond Team 2020" style="width: 56px; display: inline-block;" class="d-none d-sm-block float-right mr-3">
 	</footer>
 
 	<script type="text/javascript">

@@ -14,8 +14,8 @@
 				<img src="{{ candidat.image.url }}" class="card-img-top" alt="{{ candidat.name }}">
 				<div class="card-body text-dark">
 					<h5 class="card-title">{{ candidat.name }}</h5>
-					<p class="card-text">{{ candidat.move|truncatewords:15 }}
-						{% if candidat.move|length > 60 %}
+					<p class="card-text">{{ candidat.move|truncatewords:15 }}... <br>
+						{% if candidat.move|wordcount > 15 %}
 						<a href="" class="" data-toggle="modal" data-target="#exampleModalScrollable">
 							Полностью
 						</a>

@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block content %}
+	{% include 'includes/login_card.html' %}
 	<div class="card-columns mt-3">
 	{% for candidat in candidats %}
 		<div class="card">
 			<img src="{{ candidat.image.url }}" class="card-img-top" alt="{{ candidat.name }}">
 			<div class="card-body">
 				<h5 class="card-title">{{ candidat.name }}</h5>
-				<p class="card-text">{{ candidat.move|truncatewords:15 }}
-					{% if candidat.move|length > 60 %}
+				<p class="card-text">{{ candidat.move|truncatewords:15 }}... <br>
+					{% if candidat.move|wordcount > 15 %}
 					<a href="" class="" data-toggle="modal" data-target="#exampleModalScrollable">
 						Полностью
 					</a>
