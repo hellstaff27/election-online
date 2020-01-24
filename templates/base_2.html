@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="jumbotron text-center text-light j-u" style="margin-bottom:0; background-image: url({% static 'images/moscow2.jpg' %}); background-size: 100% 100%;">
-	  <h1 class="um-t">Выберете своё будущее...</h1>
+	  <h1 class="um-t">Выбирайте своё будущее...</h1>
 	  <h3>Дистанционно!</h3> 
 	</div>
 	<header class="header sticky-top">
@@ -51,7 +51,7 @@
 					</li>
 					{% if not request.user.is_authenticated %}
 					<li class="nav-item text-center">
-						<a href="{% url 'users:auth_url' %}" class="nav-link">Аторизация</a>
+						<a href="{% url 'users:auth_url' %}" class="nav-link">Авторизация</a>
 					</li>
 					<li class="nav-item text-center">
 						<a href="{% url 'users:regist_url' %}" class="nav-link">Регистрация</a>

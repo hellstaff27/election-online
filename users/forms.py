@@ -17,7 +17,7 @@ class UserChangeForm(UserChangeForm):
 		fields = ['username', 'email', 'ser', 'num', 'date', 'given', 'code', 'adress']
 
 class AuthForm(forms.Form):
-	email = forms.CharField(max_length = 255, label = 'Ваше e-mail', widget = forms.EmailInput(attrs = {'class': 'form-control', 'autofocus': True, 'placeholder': 'your@mail.com'}))
+	email = forms.CharField(max_length = 255, label = 'Ваш e-mail', widget = forms.EmailInput(attrs = {'class': 'form-control', 'autofocus': True, 'placeholder': 'your@mail.com'}))
 	password = forms.CharField(max_length = 255, label = 'Пароль', widget = forms.PasswordInput(attrs = {'class': 'form-control'}))
 
 	error_messages = {
