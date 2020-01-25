@@ -25,4 +25,4 @@ This project is an online-resource for voting and elections.
  
 
 
-**MacroDev Studio 2020**
+**Diamond Team 2020**
