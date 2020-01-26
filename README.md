@@ -20,7 +20,7 @@ This project is an online-resource for voting and elections.
   
   
   
- *The authors: Nikita Pavlov, Dmitry Matveev, Plato Trofimov, Aida Fayzrakhmanova, Artem Naumov, Victor Ivanov, Svyatoslav Yesipov, Daniil Goncharov, Pavel Pavlov, Zahar Titov, Alexandra Ledyaykina.*
+ *The authors: Nikita Pavlov, Dmitry Matveev, Plato Trofimov, Aida Fayzrakhmanova, Artem Naumov, Victor Ivanov, Svyatoslav Yesipov, Daniil Goncharov, Pavel Pavlov, Zahar Titov.*
  
  
 
